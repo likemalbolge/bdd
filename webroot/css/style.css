@@ -1,0 +1,133 @@
+.game-container {
+    margin-top: 3rem;
+}
+.gt-container {
+    margin-top: 1rem;
+}
+.ls-form-container {
+    margin-top: 3rem;
+    max-width: 40rem;
+}
+.alert-signup {
+    margin-top: 1rem;
+    max-width: 40rem;
+    text-align: center;
+}
+.game-logo {
+    width: 15rem;
+    height: 15rem;
+}
+.gm-card {
+    margin-bottom: 3rem;
+}
+.col-sm-12 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.body {
+    min-height: 87vh;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tags {
+    margin-top: 2rem;
+}
+
+.tag {
+    font-size: 1rem;
+    margin-right: 0.5rem;
+}
+
+.developer {
+    margin-bottom: 0.5rem;
+}
+
+.comments-container {
+    margin-top: 3rem;
+}
+
+.comment-text {
+    resize: none;
+    margin-bottom: 0.5rem;
+}
+
+.media {
+    background-color: #efefef;
+    padding: 0.5rem;
+}
+
+.media-container {
+    background-color: #efefef;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.control {
+    border: none;
+    display: none;
+}
+
+.control img {
+    width: 10px;
+    height: 10px;
+}
+
+.user-container {
+    background-color: #efefef;
+    padding: 1rem;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    min-height: 87vh;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
+}
+
+.game-img {
+    height: 18rem;
+}
+
+.error404 {
+    position: absolute;
+    width: 100vw;
+    height: 87vh;
+    top: 66px;
+    left: 0;
+}
+
+.error404 img {
+    width: 100%;
+    height: 100%;
+}
+
+.user-control {
+    border: none;
+    background-color: #efefef;
+
+}
+
+.user-control img {
+    width: 20px;
+    height: 20px;
+}
+
+.admin {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-tag {
+    font-size: 0.7rem;
+}

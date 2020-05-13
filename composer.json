@@ -1,0 +1,22 @@
+{
+    "name": "likemalbolge/bavkydd",
+    "type": "project",
+    "authors": [
+        {
+            "name": "likemalbolge",
+            "email": "vanyaolenyshak@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Models\\": "src/Models",
+            "Views\\": "src/Views",
+            "Controllers\\": "src/Controllers",
+            "System\\": "src/",
+            "Helpers\\": "src/Helpers"
+        }
+    }
+}
