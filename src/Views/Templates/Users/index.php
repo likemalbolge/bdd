@@ -64,6 +64,9 @@ use Models\User;
             <a class="btn btn-primary mt-2" href="
     <?= Html::link('users', 'deletetable') ?>">
                 Видалити користувача</a>
+            <a class="btn btn-primary mt-4" href="
+    <?= Html::link('games', 'statistics') ?>">
+                Статистика популярності ігор</a>
         </div>
     <?php endif; ?>
 </div>

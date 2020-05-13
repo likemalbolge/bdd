@@ -146,6 +146,16 @@ class User
             }
             if (trim($userData['password']) == "") {
                 $errors[] = 'Введіть пароль!';
+            } else
+            {
+                $regexp = '/^\S*(?=\S{8,20})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/';
+
+                if (!preg_match($regexp, $userData['password']))
+                {
+                    $errors[] = 'Пароль має складатись з літер англійського алфавіту,
+                    містити не менше 8-ми символів, не більше 20 символів,
+                    хоча б одну велику і одну маленьку літеру і хоча б одну цифру';
+                }
             }
             if (trim($userData['allowPassword']) != trim($userData['password'])) {
                 $errors[] = 'Повторний пароль введено некоректно!';
@@ -226,7 +236,16 @@ class User
                 $errors[] = 'Неправильний пароль!';
             } else
             {
-                $user->password = password_hash($data['new_password'], PASSWORD_DEFAULT);
+                $regexp = '/^\S*(?=\S{8,20})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/';
+
+                if (!preg_match($regexp, $data['new_password']))
+                {
+                    $errors[] = 'Пароль має складатись з літер англійського алфавіту,
+                    містити не менше 8-ми символів, не більше 20 символів,
+                    хоча б одну велику і одну маленьку літеру і хоча б одну цифру';
+                } else {
+                    $user->password = password_hash($data['new_password'], PASSWORD_DEFAULT);
+                }
             }
         }
 

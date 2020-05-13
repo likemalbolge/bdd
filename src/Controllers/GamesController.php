@@ -32,6 +32,7 @@ class GamesController
         {
             if (isset($_GET['id']))
             {
+                Game::addView($_GET['id']);
                 View::render('gamepage', ['gameData' => Game::getGameData($_GET['id']),
                     'commentsData' => Comment::getCommentsData($_GET['id'], $_POST)]);
             }
@@ -126,5 +127,10 @@ class GamesController
     public function edittable()
     {
         View::render('edittable', ['title' => 'Редагувати гру', 'games' => Game::getGames()]);
+    }
+
+    public function statistics()
+    {
+        View::render('statistics', ['title' => 'Статистика популярності ігор', 'data' => Game::getStatistics()]);
     }
 }

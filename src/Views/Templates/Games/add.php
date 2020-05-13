@@ -23,7 +23,7 @@
             <input type="text" class="form-control" id="description" name="description">
         </div>
         <div class="form-group">
-            <label for="tags">Теги (через кому, мінімум 3)</label>
+            <label for="tags">Теги (через кому)</label>
             <input type="text" class="form-control" id="tags" name="tags">
         </div>
         <div class="form-group">

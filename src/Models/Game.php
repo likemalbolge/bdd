@@ -136,10 +136,26 @@ class Game
         {
             $game->title = $data['title'];
             $game->link = $data['link'];
-            $game->resolution = $data['resolution'];
+
+            $resolution = explode(',', $data['resolution']);
+            for ($i = 0; $i < count($resolution); $i++)
+            {
+                $resolution[$i] = trim($resolution[$i]);
+            }
+            $resolution = implode(',', $resolution);
+
+            $game->resolution = $resolution;
             $game->img = $data['img'];
             $game->description = $data['description'];
-            $game->tags = $data['tags'];
+
+            $tags = explode(',', $data['tags']);
+            for ($i = 0; $i < count($tags); $i++)
+            {
+                $tags[$i] = ucfirst(trim($tags[$i]));
+            }
+            $tags = implode(',', $tags);
+
+            $game->tags = $tags;
             $game->developer = $data['developer'];
             $game->mobile_ready = $data['mobile_ready'];
             $game->add_date = \R::isoDate();
@@ -246,5 +262,31 @@ class Game
         }
 
         return null;
+    }
+
+    public static function addView($id)
+    {
+        $game = Game::getGameByID($id);
+        $game->views = $game->views + 1;
+        \R::store($game);
+    }
+
+    public static function getStatistics()
+    {
+        $games = array_values(\R::findAll('games', 'ORDER BY views DESC LIMIT 5'));
+        $vars = array();
+        $labels = array();
+        $values = array();
+
+        for ($i = 0; $i < count($games); $i++)
+        {
+            $labels[] = $games[$i]['title'];
+            $values[] = $games[$i]['views'];
+        }
+
+        $vars['labels'] = json_encode($labels);
+        $vars['values'] = json_encode($values);
+
+        return $vars;
     }
 }

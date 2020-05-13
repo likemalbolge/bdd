@@ -24,10 +24,13 @@ use Helpers\Html;
                         <p class="card-text">Підтримка мобільних пристроїв:
                             <?= $data['news'][$i]['mobile_ready']; ?></p>
                     </div>
+                    <p class="text-center">Теги</p>
+                    <hr class="my-0">
                     <ul class="list-group list-group-flush">
                         <?php for ($j = 0; $j < 3; $j++) : ?>
+                        <?php if (isset($data['tags'][$i][$j])) : ?>
                             <li class="list-group-item"><?= $data['tags'][$i][$j]; ?></li>
-                        <?php endfor; ?>
+                        <?php endif; endfor; ?>
                     </ul>
                     <div class="card-footer text-muted">
                         Опубліковано: <?= $data['news'][$i]["add_date"] ?>

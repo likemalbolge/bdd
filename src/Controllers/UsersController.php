@@ -70,7 +70,14 @@ class UsersController
             $edit_error = User::editUserByID($_GET['id'], $_POST);
             if ($edit_error == "")
             {
-                App::redirect('users', 'edittable');
+                if ($logged_user['id'] == $_GET['id'])
+                {
+                    App::redirect('users', 'index');
+                } else
+                {
+                    App::redirect('users', 'edittable');
+                }
+
             } else
             {
                 View::render('edit', ['title' => 'Редагування профілю',
