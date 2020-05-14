@@ -6,7 +6,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 define('RB', __DIR__ . '/../libs/rb.php');
 define('DB', __DIR__ . '/db.php');
-define('BASE_URL', 'http://localhost/bdd/');
+define('BASE_URL', 'http://j977578b.beget.tech/');
 define('FULLPATH', 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
 define('REQUEST', str_replace(BASE_URL, '', FULLPATH));
 

@@ -170,7 +170,10 @@ class User
             if (empty($errors)) {
                 if ($id = User::addUser($userData))
                 {
-                    $_SESSION['logged_user'] = $id;
+                    if (!(User::getLoggedUser()['type'] == 'admin'))
+                    {
+                        $_SESSION['logged_user'] = $id;
+                    }
 
                     if (User::verifyUserEmail(User::getLoggedUser()['email'], User::getLoggedUser()['token']))
                     {
@@ -226,6 +229,7 @@ class User
             } else
             {
                 $user->type = $data['usertype'];
+                $user->verified = $data['verified'];
             }
         }
         if ((trim($data['old_password']) == "") xor (trim($data['new_password']) == "")) {
@@ -268,9 +272,15 @@ class User
     public static function deleteUserByID($id)
     {
         $user = \R::findOne('users', 'id = ?', array($id));
+        $comments = \R::find('comments', 'user_id = ?', array($id));
+
         if ($user !== null)
         {
             \R::trash($user);
+            if ($comments !== null)
+            {
+                \R::trashAll($comments);
+            }
         } else
         {
             App::redirect('users', 'index');
@@ -301,15 +311,15 @@ class User
         try
         {
             $mail->isSMTP();
-            $mail->Host = "smtp.gmail.com";
+            $mail->Host = "smtp.mail.yahoo.com";
             $mail->SMTPAuth = true;
-            $mail->Username   = 'bavkyverify@gmail.com';
-            $mail->Password   = 'fosypassword';
+            $mail->Username   = 'bavkyverify@yahoo.com';
+            $mail->Password   = 'fofjdyhslgpipvql';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
             $mail->Port = 465;
             $mail->CharSet = "UTF-8";
 
-            $mail->setFrom('bavkyverify@gmail.com', 'Верифікація Бавок');
+            $mail->setFrom('bavkyverify@yahoo.com', 'Верифікація Бавок');
             $mail->addAddress($userEmail);
 
             $mail->isHTML(true);

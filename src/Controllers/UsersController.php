@@ -65,6 +65,11 @@ class UsersController
             App::redirect('users', 'index');
         }
 
+        if (User::getUserByID($_GET['id']) == null)
+        {
+            App::redirect('users', 'index');
+        }
+
         if (isset($_POST['do_edit']))
         {
             $edit_error = User::editUserByID($_GET['id'], $_POST);

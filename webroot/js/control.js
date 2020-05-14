@@ -1,5 +1,5 @@
 $('document').ready(function () {
-    if (window.location.pathname == '/bdd/games/gamepage')
+    if (window.location.pathname == '/games/gamepage')
     {
         $('.comment-text').val(taVal);
 

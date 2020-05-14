@@ -29,6 +29,10 @@
                 <label for="usertype">Тип користувача</label>
                 <input type="text" class="form-control" id="usertype" name="usertype" value="<?= $data['type'] ?>">
             </div>
+            <div class="form-group">
+                <label for="verified">Верифіковано (0 — ні, 1 — так)</label>
+                <input type="text" class="form-control" id="verified" name="verified" value="<?= $data['verified'] ?>">
+            </div>
         <?php endif; ?>
 
         <button type="submit" class="btn btn-primary" name="do_edit">Редагувати</button>
