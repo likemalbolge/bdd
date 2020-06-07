@@ -20,11 +20,7 @@ class Game
         $errors = array();
         $alert = '';
 
-        if (User::getLoggedUser() !== null) {
-            if (!User::getLoggedUser()['verified']) {
-                $errors[] = 'Для доступу до ігор ви мусите підтвердити вашу електронну пошту';
-            }
-        } else {
+        if (User::getLoggedUser() == null) {
             $errors[] = 'Ви мусите авторизуватися для доступу до ігор';
         }
 
@@ -131,6 +127,31 @@ class Game
         if (trim($data['mobile_ready']) == "") {
             $errors[] = 'Введіть статус підтримки для мобільних пристроїв!';
         }
+        $validRes = explode(',', $data['resolution']);
+
+        if (count($validRes) !== 2) {
+            $errors[] = 'Розміри вікна введені некоректно!';
+        } else {
+            if (!is_numeric($validRes[0]) || !is_numeric($validRes[1])) {
+                $errors[] = 'Розміри вікна введені некоректно!';
+            }
+        }
+
+        $regexp = '/\W/';
+        $match = array();
+
+        if (preg_match_all($regexp, $data['tags'], $match)) {
+            for ($i = 0; $i < count($match[0]); $i++) {
+                if ($match[0][$i] !== ',' && $match[0][$i] !== '-' && $match[0][$i] !== ' ') {
+                    $errors[] = 'Теги введені некоректно!';
+                    break;
+                }
+            }
+        }
+
+        if ($data['mobile_ready'] !== 'так' && $data['mobile_ready'] !== 'ні') {
+            $errors[] = 'Статус підтримки для мобільних пристроїв введено некоректно! (статус може бути "так" або "ні")';
+        }
 
         if (empty($errors))
         {
@@ -201,6 +222,32 @@ class Game
         }
         if (trim($data['mobile_ready']) == "") {
             $errors[] = 'Введіть статус підтримки для мобільних пристроїв!';
+        }
+
+        $validRes = explode(',', $data['resolution']);
+
+        if (count($validRes) !== 2) {
+            $errors[] = 'Розміри вікна введені некоректно!';
+        } else {
+            if (!is_numeric($validRes[0]) || !is_numeric($validRes[1])) {
+                $errors[] = 'Розміри вікна введені некоректно!';
+            }
+        }
+
+        $regexp = '/\W/';
+        $match = array();
+
+        if (preg_match_all($regexp, $data['tags'], $match)) {
+            for ($i = 0; $i < count($match[0]); $i++) {
+                if ($match[0][$i] !== ',' && $match[0][$i] !== '-' && $match[0][$i] !== ' ') {
+                    $errors[] = 'Теги введені некоректно!';
+                    break;
+                }
+            }
+        }
+
+        if ($data['mobile_ready'] !== 'так' && $data['mobile_ready'] !== 'ні') {
+            $errors[] = 'Статус підтримки для мобільних пристроїв введено некоректно! (статус може бути "так" або "ні")';
         }
 
         if (empty($errors))

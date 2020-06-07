@@ -67,9 +67,17 @@ class Comment
 
     public static function getCommentsData($gameID, $data)
     {
+        $closed = '';
         $vars = array();
         $alert = '';
         $errors = array();
+
+        if (!User::getLoggedUser()['verified']) {
+            $closed = 'Для публікації коментарів ви мусите підтвердити вашу електронну пошту';
+            $vars['closed'] = $closed;
+        } else {
+            $vars['closed'] = $closed;
+        }
 
         $vars['task'] = 'do_comment';
 

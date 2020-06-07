@@ -37,16 +37,26 @@ use Models\User;
     <div class="row justify-content-center">
         <h2>Коментарі</h2>
     </div>
-    <div class="row justify-content-center mb-3">
-        <form method="post">
-            <textarea class="form-control comment-text" maxlength="1000" rows="5" cols="100" name="comment-text">
-            </textarea>
-            <button type="submit" class="btn btn-primary" name="<?= $commentsData['task'] ?>">
-                <?php if ($commentsData['task'] == 'do_comment') { echo 'Залишити'; }
-                else if ($commentsData['task'] == 'edit_comment') { echo 'Редагувати'; } ?> коментар
-            </button>
-        </form>
-    </div>
+    <?php if ($commentsData['closed'] == '') : ?>
+        <div class="row justify-content-center mb-3">
+            <form method="post">
+                <textarea class="form-control comment-text" maxlength="1000" rows="5" cols="100" name="comment-text">
+                </textarea>
+                <button type="submit" class="btn btn-primary" name="<?= $commentsData['task'] ?>">
+                    <?php if ($commentsData['task'] == 'do_comment') { echo 'Залишити'; }
+                    else if ($commentsData['task'] == 'edit_comment') { echo 'Редагувати'; } ?> коментар
+                </button>
+            </form>
+        </div>
+    <?php else : ?>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="alert alert-warning alert-signup">
+                    <strong><?= $commentsData['closed'] ?></strong>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
     <div class="row justify-content-center">
         <?= $commentsData['alert'] ?>
     </div>

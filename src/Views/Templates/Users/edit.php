@@ -26,7 +26,7 @@
             <hr class="my-4">
             <h5 class="text-center">Можливості адміністратора</h5>
             <div class="form-group">
-                <label for="usertype">Тип користувача</label>
+                <label for="usertype">Тип користувача (user або admin)</label>
                 <input type="text" class="form-control" id="usertype" name="usertype" value="<?= $data['type'] ?>">
             </div>
             <div class="form-group">

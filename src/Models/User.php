@@ -81,7 +81,9 @@ class User
 
             for ($i = 0; $i < count($ids); $i++)
             {
-                $games[] = Game::getGameByID($ids[$i]);
+                if (Game::getGameByID($ids[$i]) !== null) {
+                    $games[] = Game::getGameByID($ids[$i]);
+                }
             }
 
             return $games;
@@ -224,12 +226,12 @@ class User
         }
         if ((User::getLoggedUser()['type'] == 'admin') && (User::getLoggedUser()['id'] !== $_GET['id']))
         {
-            if (trim($data['usertype']) == "") {
-                $errors[] = 'Введіть тип користувача!';
-            } else
+            if (trim($data['usertype']) == "" || $data['usertype'] !== 'user' || $data['usertype'] !== 'admin') {
+                $errors[] = 'Введіть тип користувача коректно!';
+            }
+            if (trim($data['verified']) == "" || $data['verified'] !== '1' || $data['verified'] !== '0')
             {
-                $user->type = $data['usertype'];
-                $user->verified = $data['verified'];
+                $errors[] = 'Введіть статус верифікації коректно!';
             }
         }
         if ((trim($data['old_password']) == "") xor (trim($data['new_password']) == "")) {
@@ -257,6 +259,8 @@ class User
         {
             $user->name = $data['name'];
             $user->description = $data['description'];
+            $user->type = $data['usertype'];
+            $user->verified = $data['verified'];
 
             \R::store($user);
         } else
