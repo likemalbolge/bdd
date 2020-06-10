@@ -10,6 +10,7 @@ use Helpers\Html;
     </div>
 </div>
 <?php if (empty($data['alert'])) : ?>
+    <a id="button"></a>
     <div class="container gt-container">
         <div class="row justify-content-center">
             <h1>Список ігор</h1>

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Reebok
- * Date: 21.04.2020
- * Time: 17:03
- */
 
 namespace Views;
 

@@ -9,6 +9,7 @@ use Helpers\Html;
         <h1>Новини</h1>
     </div>
 </div>
+<a id="button"></a>
 <div class="container">
     <div class="row">
         <?php for ($i = 0; $i < count($data['news']); $i++) : ?>

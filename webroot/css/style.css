@@ -1,6 +1,6 @@
 .game-container {
-    margin-top: 3rem;
-}
+     margin-top: 3rem;
+ }
 .gt-container {
     margin-top: 1rem;
 }
@@ -131,4 +131,46 @@
 
 .admin-tag {
     font-size: 0.7rem;
+}
+
+#button {
+    display: inline-block;
+    background-color: #78C2AD;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 20px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s,
+    opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+
+#button::after {
+    content: "\f077";
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+}
+
+#button:hover {
+    cursor: pointer;
+}
+
+#button.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (min-width: 500px) {
+    #button {
+        margin: 30px;
+    }
 }

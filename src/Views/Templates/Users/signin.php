@@ -1,3 +1,7 @@
+<?php
+use Helpers\Html;
+?>
+
 <title><?= $title ?></title>
 
 <div class="container gt-container">
@@ -16,6 +20,8 @@
             <label for="password">Пароль</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Пароль">
         </div>
+        <a href="<?= Html::link('users', 'forgot') ?>" class="float-right">Забули пароль?</a>
+        <br>
         <button type="submit" class="btn btn-primary" name="do_login">Вхід</button>
     </form>
     <?= $data['alert'] ?>

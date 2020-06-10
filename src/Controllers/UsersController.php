@@ -146,4 +146,70 @@ class UsersController
         View::render('edittable', ['title' => 'Редагувати користувача', 'users' => User::getAllUsers()]);
     }
 
+    public function forgot() {
+        $alert = '';
+
+        if (isset($_POST['do_repair'])) {
+            if (($user = User::getUserByEmail($_POST['email'])) !== null) {
+                do {
+                    $token = uniqid();
+                    $fake_token = User::getUserByToken($token);
+                } while (!empty($fake_token));
+
+                $user->token = $token;
+
+                \R::store($user);
+
+                $_SESSION['repUser'] = $_POST['email'];
+
+                User::repairUsersPassword($_POST['email'], $token);
+            } else {
+                $alert = '<div class="alert alert-danger text-center mt-3">
+                    <strong>Користувача з такою поштою не знайдено!</strong>
+                  </div>';
+                unset($_POST['do_repair']);
+            }
+        } else if (isset($_POST['repair_token'])) {
+            if (($user = User::getUserByToken($_POST['token'])) == null)
+            {
+                unset($_POST['repair_token']);
+                $_POST['do_repair'] = '';
+                $alert = '<div class="alert alert-danger text-center mt-3">
+                    <strong>Невірно введений код!</strong>
+                  </div>';
+            }
+        } else if (isset($_POST['repair_password'])) {
+            if (trim($_POST['password']) == "") {
+                $alert = '<div class="alert alert-danger text-center mt-3">
+                    <strong>Введіть пароль</strong>
+                  </div>';
+            } else
+            {
+                $regexp = '/^\S*(?=\S{8,20})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/';
+
+                if (!preg_match($regexp, $_POST['password']))
+                {
+                    unset($_POST['repair_password']);
+                    $_POST['repair_token'] = '';
+                    $alert = '<div class="alert alert-danger text-center mt-3">
+                    <strong>Пароль має складатись з літер англійського алфавіту,
+                    містити не менше 8-ми символів, не більше 20 символів,
+                    хоча б одну велику і одну маленьку літеру і хоча б одну цифру</strong>
+                  </div>';
+                } else {
+                    $repUser = User::getUserByEmail($_SESSION['repUser']);
+                    $repUser->password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    \R::store($repUser);
+                    App::redirect('users', 'signin');
+                }
+            }
+        }
+
+        View::render('forgot', ['title' => 'Відновлення паролю', 'alert' => $alert]);
+    }
+
+    public function repairPassword() {
+
+    }
+
 }

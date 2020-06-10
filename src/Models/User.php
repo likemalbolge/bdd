@@ -180,7 +180,8 @@ class User
                     if (User::verifyUserEmail(User::getLoggedUser()['email'], User::getLoggedUser()['token']))
                     {
                         $alert = '<div class="alert alert-success alert-signup">
-                                <strong>Ви успішно зареєстровані, підтвердіть, будь ласка, свою електронну пошту</strong>
+                                <strong>Ви успішно зареєстровані, підтвердіть, будь ласка, свою електронну пошту.
+                                Не забудьте перевірити спам, так, як повідомлення помилково могло поступити туди!</strong>
                               </div>';
                         unset($data);
                     } else
@@ -336,6 +337,41 @@ class User
   <a class="btn btn-primary btn-lg" href="'
                 . Html::link('users', 'index', 'verify=' . $userToken) .
                 '" role="button">Перейти</a>
+</div>';
+            $mail->AltBody = 'Ой, здається у нас помилочка (зверніться до підтримки сайту)';
+            $mail->send();
+            return true;
+        } catch (Exception $e)
+        {
+            return false;
+        }
+    }
+
+    public static function repairUsersPassword($userEmail, $token) {
+        $mail = new PHPMailer(true);
+
+        try
+        {
+            $mail->isSMTP();
+            $mail->Host = "smtp.mail.yahoo.com";
+            $mail->SMTPAuth = true;
+            $mail->Username   = 'bavkyverify@yahoo.com';
+            $mail->Password   = 'fofjdyhslgpipvql';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port = 465;
+            $mail->CharSet = "UTF-8";
+
+            $mail->setFrom('bavkyverify@yahoo.com', 'Верифікація Бавок');
+            $mail->addAddress($userEmail);
+
+            $mail->isHTML(true);
+            $mail->Subject = 'Відновлення паролю';
+            $mail->Body    = '<div class="jumbotron">
+  <h1 class="display-4">Привіт, друже!</h1>
+  <p class="lead">Схоже, ти забув пароль на порталі "Бавки для дітий"</p>
+  <hr class="my-4">
+  <p>Щоб продовжити відновлення, ти повинен ввести код, приведений нижче в поле на сайті</p>
+  <h1 class="text-center">' . $token . '</h1>
 </div>';
             $mail->AltBody = 'Ой, здається у нас помилочка (зверніться до підтримки сайту)';
             $mail->send();

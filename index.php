@@ -12,7 +12,8 @@ use System\App;
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="<?= WEB . 'img/favicon.ico' ?>" type="image/x-icon">
     <?= Html::css('bootstrap.min.css') ?>
-    <?php //Html::css('https://fonts.googleapis.com/icon?family=Material+Icons') ?>
+    <?= Html::css('font-awesome.min.css') ?>
+    <?php Html::css('https://fonts.googleapis.com/icon?family=Material+Icons') ?>
     <?= Html::css('style.css') ?>
 </head>
 <body>
@@ -26,10 +27,11 @@ use System\App;
 
 <?= Html::element('footer') ?>
 
-<?= Html::script('jquery-3.4.1.slim.min.js') ?>
+<?= Html::script('jquery.min.js') ?>
 <?= Html::script('popper.min.js') ?>
 <?= Html::script('bootstrap.min.js') ?>
 <?= Html::script('control.js') ?>
+<?= Html::script('btt.js') ?>
 
 <script>
     $(function () {

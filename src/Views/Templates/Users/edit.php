@@ -12,16 +12,18 @@
             <input type="text" class="form-control" id="description" name="description"
                    value="<?= $data['description'] ?>">
         </div>
-        <hr class="my-4">
-        <h5 class="text-center">Зміна паролю</h5>
-        <div class="form-group">
-            <label for="old_password">Старий пароль</label>
-            <input type="password" class="form-control" id="old_password" name="old_password">
-        </div>
-        <div class="form-group">
-            <label for="new_password">Новий пароль</label>
-            <input type="password" class="form-control" id="new_password" name="new_password">
-        </div>
+        <?php if (($logged_user['type'] == 'user') || (($logged_user['type'] == 'admin') && ($logged_user['id'] == $_GET['id']))) : ?>
+            <hr class="my-4">
+            <h5 class="text-center">Зміна паролю</h5>
+            <div class="form-group">
+                <label for="old_password">Старий пароль</label>
+                <input type="password" class="form-control" id="old_password" name="old_password">
+            </div>
+            <div class="form-group">
+                <label for="new_password">Новий пароль</label>
+                <input type="password" class="form-control" id="new_password" name="new_password">
+            </div>
+        <?php endif; ?>
         <?php if (($logged_user['type'] == 'admin') && ($logged_user['id'] !== $_GET['id'])) : ?>
             <hr class="my-4">
             <h5 class="text-center">Можливості адміністратора</h5>

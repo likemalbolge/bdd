@@ -137,12 +137,12 @@ class Game
             }
         }
 
-        $regexp = '/\W/';
+        $regexp = '/\W/u';
         $match = array();
 
         if (preg_match_all($regexp, $data['tags'], $match)) {
             for ($i = 0; $i < count($match[0]); $i++) {
-                if ($match[0][$i] !== ',' && $match[0][$i] !== '-' && $match[0][$i] !== ' ') {
+                if ($match[0][$i] !== ',' && $match[0][$i] !== '-' && $match[0][$i] !== ' ' && $match[0][$i] !== '\'') {
                     $errors[] = 'Теги введені некоректно!';
                     break;
                 }
@@ -172,7 +172,9 @@ class Game
             $tags = explode(',', $data['tags']);
             for ($i = 0; $i < count($tags); $i++)
             {
-                $tags[$i] = ucfirst(trim($tags[$i]));
+                $st = explode(' ', trim($tags[$i]));
+                $st[0] = mb_convert_case(trim($st[0]), MB_CASE_TITLE, "UTF-8");
+                $tags[$i] = implode(' ', $st);
             }
             $tags = implode(',', $tags);
 
@@ -234,12 +236,12 @@ class Game
             }
         }
 
-        $regexp = '/\W/';
+        $regexp = '/\W/u';
         $match = array();
 
         if (preg_match_all($regexp, $data['tags'], $match)) {
             for ($i = 0; $i < count($match[0]); $i++) {
-                if ($match[0][$i] !== ',' && $match[0][$i] !== '-' && $match[0][$i] !== ' ') {
+                if ($match[0][$i] !== ',' && $match[0][$i] !== '-' && $match[0][$i] !== ' ' && $match[0][$i] !== '\'') {
                     $errors[] = 'Теги введені некоректно!';
                     break;
                 }
@@ -254,10 +256,28 @@ class Game
         {
             $game->title = $data['title'];
             $game->link = $data['link'];
-            $game->resolution = $data['resolution'];
+
+            $resolution = explode(',', $data['resolution']);
+            for ($i = 0; $i < count($resolution); $i++)
+            {
+                $resolution[$i] = trim($resolution[$i]);
+            }
+            $resolution = implode(',', $resolution);
+
+            $game->resolution = $resolution;
             $game->img = $data['img'];
             $game->description = $data['description'];
-            $game->tags = $data['tags'];
+
+            $tags = explode(',', $data['tags']);
+            for ($i = 0; $i < count($tags); $i++)
+            {
+                $st = explode(' ', trim($tags[$i]));
+                $st[0] = mb_convert_case(trim($st[0]), MB_CASE_TITLE, "UTF-8");
+                $tags[$i] = implode(' ', $st);
+            }
+            $tags = implode(',', $tags);
+
+            $game->tags = $tags;
             $game->developer = $data['developer'];
             $game->mobile_ready = $data['mobile_ready'];
 
